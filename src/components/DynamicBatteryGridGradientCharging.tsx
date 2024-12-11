@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
-const DynamicBatteryGridGradientCharging = () => {
+const DynamicBatteryGridGradientCharging: FC = () => {
   const fillRef = useRef<SVGRectElement | null>(null)
 
   const [level, setLevel] = useState(0)
@@ -27,8 +27,8 @@ const DynamicBatteryGridGradientCharging = () => {
       const newHeight =
         Math.floor(level / 20) * 7.5 +
         (Math.ceil(level / 20) - 1) * 2 +
-        ((level % 20) / 100) * 38 // 电池内部最大高度
-      const newY = 57 - newHeight // 计算起始 y 坐标，保持填充在底部
+        ((level % 20) / 100) * 38
+      const newY = 57 - newHeight
       fillRef.current.setAttribute('height', `${newHeight}`)
       fillRef.current.setAttribute('y', `${newY}`)
     }
@@ -70,41 +70,16 @@ const DynamicBatteryGridGradientCharging = () => {
           'fill-red-500': level <= 20,
           'fill-green-500': level > 20,
         })}
-        id='battery-fill'
-        ref={fillRef} // 绑定 ref
+        ref={fillRef}
         x='19'
-        y='57' // 初始位置在底部
+        y='57'
         width='26'
         height='0'
       ></rect>
-      <rect
-        x='19'
-        y='47.5' // 初始位置在底部
-        width='26'
-        height='2'
-        fill='white'
-      ></rect>
-      <rect
-        x='19'
-        y='38' // 初始位置在底部
-        width='26'
-        height='2'
-        fill='white'
-      ></rect>
-      <rect
-        x='19'
-        y='28.5' // 初始位置在底部
-        width='26'
-        height='2'
-        fill='white'
-      ></rect>
-      <rect
-        x='19'
-        y='19' // 初始位置在底部
-        width='26'
-        height='2'
-        fill='white'
-      ></rect>
+      <rect x='19' y='47.5' width='26' height='2' fill='white'></rect>
+      <rect x='19' y='38' width='26' height='2' fill='white'></rect>
+      <rect x='19' y='28.5' width='26' height='2' fill='white'></rect>
+      <rect x='19' y='19' width='26' height='2' fill='white'></rect>
     </svg>
   )
 }

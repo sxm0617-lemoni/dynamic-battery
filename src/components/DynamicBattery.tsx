@@ -2,9 +2,13 @@ import clsx from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 
 interface DynamicBatteryProps {
+  /** battery style type */
   type?: 'fill' | 'gap' | 'grid'
+  /** battery percentage */
   level?: number
+  /** is gradient */
   gradient?: boolean
+  /** is charging */
   charging?: boolean
 }
 
@@ -80,7 +84,7 @@ const DynamicBattery: FC<DynamicBatteryProps> = ({
       <rect
         className={clsx({
           'fill-red-500': gradient && fillLevel <= 20,
-          'fill-green-500': !gradient || fillLevel > 20,
+          'fill-green-500': gradient && fillLevel > 20,
         })}
         x='26'
         y='0'
@@ -91,7 +95,7 @@ const DynamicBattery: FC<DynamicBatteryProps> = ({
       <rect
         className={clsx({
           'stroke-red-500': gradient && fillLevel <= 20,
-          'stroke-green-500': !gradient || fillLevel > 20,
+          'stroke-green-500': gradient && fillLevel > 20,
         })}
         x='14'
         y='6'
@@ -106,9 +110,8 @@ const DynamicBattery: FC<DynamicBatteryProps> = ({
       <rect
         className={clsx({
           'fill-red-500': gradient && fillLevel <= 20,
-          'fill-green-500': !gradient || fillLevel > 20,
+          'fill-green-500': gradient && fillLevel > 20,
         })}
-        id='battery-fill'
         ref={fillRef}
         x={type === 'fill' ? '14' : '19'}
         y={type === 'fill' ? '57' : '60'}
@@ -118,34 +121,10 @@ const DynamicBattery: FC<DynamicBatteryProps> = ({
       ></rect>
       {type === 'grid' ? (
         <>
-          <rect
-            x='19'
-            y='47.5' // 初始位置在底部
-            width='26'
-            height='2'
-            fill='white'
-          ></rect>
-          <rect
-            x='19'
-            y='38' // 初始位置在底部
-            width='26'
-            height='2'
-            fill='white'
-          ></rect>
-          <rect
-            x='19'
-            y='28.5' // 初始位置在底部
-            width='26'
-            height='2'
-            fill='white'
-          ></rect>
-          <rect
-            x='19'
-            y='19' // 初始位置在底部
-            width='26'
-            height='2'
-            fill='white'
-          ></rect>
+          <rect x='19' y='47.5' width='26' height='2' fill='white'></rect>
+          <rect x='19' y='38' width='26' height='2' fill='white'></rect>
+          <rect x='19' y='28.5' width='26' height='2' fill='white'></rect>
+          <rect x='19' y='19' width='26' height='2' fill='white'></rect>
         </>
       ) : null}
     </svg>

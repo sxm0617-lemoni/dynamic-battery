@@ -1,14 +1,19 @@
 import clsx from 'clsx'
-import { useEffect, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
-const DynamicBatteryGapGradient = ({ level }: { level: number }) => {
+interface DynamicBatteryGapGradientProps {
+  level: number
+}
+
+const DynamicBatteryGapGradient: FC<DynamicBatteryGapGradientProps> = ({
+  level,
+}) => {
   const fillRef = useRef<SVGRectElement | null>(null)
 
   useEffect(() => {
     if (fillRef.current) {
-      // 动态设置电池填充高度
-      const newHeight = (level / 100) * 46 // 电池内部最大高度
-      const newY = 57 - newHeight // 计算起始 y 坐标，保持填充在底部
+      const newHeight = (level / 100) * 46
+      const newY = 57 - newHeight
       fillRef.current.setAttribute('height', `${newHeight}`)
       fillRef.current.setAttribute('y', `${newY}`)
     }
@@ -50,10 +55,9 @@ const DynamicBatteryGapGradient = ({ level }: { level: number }) => {
           'fill-red-500': level <= 20,
           'fill-green-500': level > 20,
         })}
-        id='battery-fill'
-        ref={fillRef} // 绑定 ref
+        ref={fillRef}
         x='19'
-        y='57' // 初始位置在底部
+        y='57'
         width='26'
         height='0'
       ></rect>

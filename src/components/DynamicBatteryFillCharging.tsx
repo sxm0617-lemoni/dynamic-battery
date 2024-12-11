@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
-const DynamicBatteryFillCharging = () => {
+const DynamicBatteryFillCharging: FC = () => {
   const fillRef = useRef<SVGRectElement | null>(null)
 
   const [level, setLevel] = useState(0)
@@ -23,9 +23,8 @@ const DynamicBatteryFillCharging = () => {
 
   useEffect(() => {
     if (fillRef.current) {
-      // 动态设置电池填充高度
-      const newHeight = (level / 100) * 52 + 0.5 // 电池内部最大高度
-      const newY = 60 - newHeight + 0.5 // 计算起始 y 坐标，保持填充在底部
+      const newHeight = (level / 100) * 52 + 0.5
+      const newY = 60 - newHeight + 0.5
       fillRef.current.setAttribute('height', `${newHeight}`)
       fillRef.current.setAttribute('y', `${newY}`)
     }
@@ -38,16 +37,8 @@ const DynamicBatteryFillCharging = () => {
       width='64'
       height='64'
     >
+      <rect x='26' y='0' width='12' height='4' fill='currentColor'></rect>
       <rect
-        className='fill-green-500'
-        x='26'
-        y='0'
-        width='12'
-        height='4'
-        fill='currentColor'
-      ></rect>
-      <rect
-        className='stroke-green-500'
         x='14'
         y='6'
         width='36'
@@ -59,11 +50,9 @@ const DynamicBatteryFillCharging = () => {
         strokeWidth='4'
       ></rect>
       <rect
-        className='fill-green-500'
-        id='battery-fill'
-        ref={fillRef} // 绑定 ref
+        ref={fillRef}
         x='16'
-        y='60' // 初始位置在底部
+        y='60'
         width='32'
         height='0'
         fill='currentColor'
